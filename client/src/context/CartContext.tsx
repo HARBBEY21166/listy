@@ -43,7 +43,25 @@ interface CartContextValue {
   getTotal: () => number;
 }
 
-const CartContext = createContext<CartContextValue | undefined>(undefined);
+// Create a default empty cart context value
+const defaultCartContext: CartContextValue = {
+  cartItems: [],
+  savedItems: [],
+  isLoading: false,
+  addToCart: async () => {},
+  updateQuantity: async () => {},
+  removeFromCart: async () => {},
+  clearCart: async () => {},
+  saveForLater: async () => {},
+  moveToCart: async () => {},
+  getTotalItems: () => 0,
+  getSubtotal: () => 0,
+  calculateDiscount: () => 0,
+  calculateTax: () => 0,
+  getTotal: () => 0
+};
+
+const CartContext = createContext<CartContextValue>(defaultCartContext);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
