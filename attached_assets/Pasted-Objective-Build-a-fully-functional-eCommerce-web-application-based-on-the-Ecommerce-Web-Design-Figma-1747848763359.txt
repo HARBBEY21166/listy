@@ -1,0 +1,84 @@
+Objective
+Build a fully functional eCommerce web application based on the Ecommerce Web Design
+Figma template. This task requires completing both the desktop and responsive (mobile view)
+versions with backend integration for dynamic content.
+
+Tasks Overview
+The project is divided into weekly milestones, covering frontend development, backend
+integration, and final deployment.
+
+Project Setup and Static Frontend Development Goal
+Set up the project environment and implement the static frontend for desktop and mobile views.
+Tasks
+1. Set up the development environment:
+○ Install and configure Node.js, React (frontend), and Express.js (backend).
+2. Clone the Figma design template into your project.
+3. Develop the following static pages for desktop and mobile views:
+○ Home Page
+○ Product Listing Page
+○ Product Details Page
+○ Cart Page
+4. Ensure the designs are fully responsive using CSS Grid, Flexbox, or any CSS
+framework like TailwindCSS or Bootstrap.
+Deliverables
+● Responsive frontend for desktop and mobile views.
+● Pages match the Figma design.
+
+Backend Setup and Dynamic Integration Goal
+Set up the backend and connect it to the frontend for dynamic content rendering.
+Tasks
+1. Set up a MongoDB (or Firebase Realtime Database) for storing product data.
+2. Create a Node.js and Express.js backend with:
+○ API endpoints for CRUD operations (Create, Read, Update, Delete) for
+products.
+○ A Products Collection with attributes:
+■ id, name, price, image, description, category, stock.
+3. Populate the database with sample product data.
+4. Fetch data dynamically from the backend to render the following pages:
+○ Home Page: Display featured products.
+○ Product Listing Page: Fetch and display all products in a grid layout.
+○ Product Details Page: Display details for a selected product.
+○ Cart Page: Add products to a cart and display selected items.
+5. Implement a search bar to filter products by name or category.
+Deliverables
+● Functional backend with APIs for product management.
+● Fully integrated frontend displaying dynamic data.
+
+Additional Features and Final Deployment Goal
+Add essential eCommerce features, complete responsive testing, and deploy the application.
+Tasks
+1. User Authentication:
+○ Use JWT or Firebase Auth for login and signup functionality.
+○ Restrict access to admin pages (e.g., product management).
+2. Cart Management:
+○ Enable users to add/remove products from the cart.
+○ Persist cart data locally using localStorage or a backend database.
+
+3. Admin Panel:
+○ Create a simple admin interface to add/edit/delete products.
+○ Use protected routes for the admin panel.
+4. Responsive Testing:
+○ Test and fix any responsive issues for desktop and mobile views.
+Deliverables
+● User authentication implemented and tested.
+● Cart functionality working for both desktop and mobile.
+● Admin panel integrated with CRUD operations.
+
+Tools and Technologies
+● Frontend: React.js, CSS3, TailwindCSS/Bootstrap (optional).
+● Backend: Node.js, Express.js.
+● Database: MongoDB/Firebase Realtime Database.
+● Version Control: GitHub.
+● Deployment: Vercel
+● OR YOU CAN USE TECHNOLOGY STACK OF YOUR OWN CHOICE
+
+Evaluation Criteria
+● Fully functional frontend and backend with dynamic content.
+● Responsive design for desktop and mobile.
+Code Quality
+● Clean and readable code with proper comments.
+● Well-organized folder structure.
+Database Design
+● Efficient and scalable database schema.
+
+Ensure your project is well-documented, responsive, and fully functional to deliver an excellent user experience.
