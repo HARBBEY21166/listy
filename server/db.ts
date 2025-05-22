@@ -1,15 +1,7 @@
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { drizzle } from 'drizzle-orm/neon-serverless';
-import ws from "ws";
-import * as schema from "@shared/schema";
+// This file is here for backward compatibility but we're using Firebase
+// All database operations are now handled through Firebase Realtime Database
+console.log("PostgreSQL connection is disabled - using Firebase instead");
 
-neonConfig.webSocketConstructor = ws;
-
-if (!process.env.DATABASE_URL) {
-  throw new Error(
-    "DATABASE_URL must be set. Did you forget to provision a database?",
-  );
-}
-
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-export const db = drizzle({ client: pool, schema });
+// Export empty objects to avoid breaking imports
+export const pool = {};
+export const db = {};
