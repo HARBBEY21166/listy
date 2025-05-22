@@ -375,14 +375,10 @@ export class FirebaseStorage implements IStorage {
   // Cart methods
   async getCartItems(userId: number): Promise<CartItem[]> {
     try {
+      // Since we don't have control over Firebase rules in this environment,
+      // let's get all cart items and filter them in code
       const cartRef = ref(database, 'cart_items');
-      const cartQuery = query(
-        cartRef, 
-        orderByChild('userId'), 
-        equalTo(userId)
-      );
-      
-      const snapshot = await get(cartQuery);
+      const snapshot = await get(cartRef);
       
       if (!snapshot.exists()) {
         return [];
@@ -393,7 +389,8 @@ export class FirebaseStorage implements IStorage {
       
       for (const [id, item] of Object.entries(cartData)) {
         const typedItem = item as any;
-        if (!typedItem.savedForLater) {
+        // Filter by userId and not savedForLater
+        if (typedItem.userId === userId && !typedItem.savedForLater) {
           // For each cart item, fetch the associated product
           const product = await this.getProductById(typedItem.productId);
           
@@ -589,14 +586,9 @@ export class FirebaseStorage implements IStorage {
 
   async getSavedForLaterItems(userId: number): Promise<CartItem[]> {
     try {
+      // Get all cart items and filter in code
       const cartRef = ref(database, 'cart_items');
-      const cartQuery = query(
-        cartRef,
-        orderByChild('userId'),
-        equalTo(userId)
-      );
-      
-      const snapshot = await get(cartQuery);
+      const snapshot = await get(cartRef);
       
       if (!snapshot.exists()) {
         return [];
@@ -607,7 +599,8 @@ export class FirebaseStorage implements IStorage {
       
       for (const [id, item] of Object.entries(cartData)) {
         const typedItem = item as any;
-        if (typedItem.savedForLater) {
+        // Filter by userId and savedForLater status
+        if (typedItem.userId === userId && typedItem.savedForLater) {
           // For each saved item, fetch the associated product
           const product = await this.getProductById(typedItem.productId);
           
