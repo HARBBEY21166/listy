@@ -22,15 +22,21 @@ export class FirebaseStorage implements IStorage {
 
   async getUserByUsername(username: string): Promise<User | undefined> {
     try {
+      // Get all users and filter in memory
       const usersRef = ref(database, 'users');
-      const userQuery = query(usersRef, orderByChild('username'), equalTo(username));
-      const snapshot = await get(userQuery);
+      const snapshot = await get(usersRef);
       
-      if (snapshot.exists()) {
-        // Get the first user with matching username
-        const users = snapshot.val();
-        const userId = Object.keys(users)[0];
-        return { id: parseInt(userId), ...users[userId] };
+      if (!snapshot.exists()) {
+        return undefined;
+      }
+      
+      const users = snapshot.val();
+      
+      // Find the user with matching username
+      for (const [userId, user] of Object.entries(users)) {
+        if ((user as any).username === username) {
+          return { id: parseInt(userId), ...(user as any) };
+        }
       }
       
       return undefined;
@@ -170,14 +176,21 @@ export class FirebaseStorage implements IStorage {
 
   async getProductBySlug(slug: string): Promise<Product | undefined> {
     try {
+      // Get all products and filter by slug in memory
       const productsRef = ref(database, 'products');
-      const productQuery = query(productsRef, orderByChild('slug'), equalTo(slug));
-      const snapshot = await get(productQuery);
+      const snapshot = await get(productsRef);
       
-      if (snapshot.exists()) {
-        const products = snapshot.val();
-        const productId = Object.keys(products)[0];
-        return { id: parseInt(productId), ...products[productId] };
+      if (!snapshot.exists()) {
+        return undefined;
+      }
+      
+      const products = snapshot.val();
+      
+      // Find the product with the matching slug
+      for (const [productId, product] of Object.entries(products)) {
+        if ((product as any).slug === slug) {
+          return { id: parseInt(productId), ...(product as any) };
+        }
       }
       
       return undefined;
@@ -375,9 +388,10 @@ export class FirebaseStorage implements IStorage {
   // Cart methods
   async getCartItems(userId: number): Promise<CartItem[]> {
     try {
-      // Since we don't have control over Firebase rules in this environment,
-      // let's get all cart items and filter them in code
+      // Get all cart items without using orderByChild
       const cartRef = ref(database, 'cart_items');
+      
+      // Simple get without query parameters
       const snapshot = await get(cartRef);
       
       if (!snapshot.exists()) {
